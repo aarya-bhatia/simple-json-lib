@@ -4,8 +4,21 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+  
+  {
+    "name": "(lldb) Launch example-1",
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "${workspaceFolder}/example-1",
+    "args": [],
+    "stopAtEntry": false,
+    "cwd": "${fileDirname}",
+    "environment": [],
+    "externalConsole": false,
+    "MIMode": "lldb"
+  },
     {
-      "name": "(lldb) Launch",
+      "name": "(lldb) Launch main",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/main",

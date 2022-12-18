@@ -9,284 +9,115 @@
 #include "sstring.h"
 #include "common.h"
 
-void json_add_child(json_t *parent, json_t *child)
-{
-    child->sibling = parent->child;
-    parent->child = child;
+void json_free(json_t *json) {
+	if(!json) { return;}
+
+	if(json->type==json_type_object){
+		json_object_free(json);
+	}
+
+	else if(json->type==json_type_array){
+		json_array_free(json);
+	}
+
+	else if(json->type==json_type_string){
+		json_string_free(json);
+	}
 }
 
-void json_free(json_t *json)
-{
-    if (!json)
-    {
-        return;
-    }
-
-    if (json->key)
-    {
-        free(json->key);
-        json->key = NULL;
-    }
-
-    if (json->child)
-    {
-        json_free(json->child);
-        json->child = NULL;
-    }
-
-    if (json->sibling)
-    {
-        json_free(json->sibling);
-        json->sibling = NULL;
-    }
-
-    if (json->value)
-    {
-        _json_val_free(json->value, json->vtype);
-        json->value = NULL;
-    }
-
-    free(json);
+void json_string_free(json_t *json) {
+	if(!json) {return;}
+	free(json->value);
+	free(json);
 }
 
-void _json_val_free(void *value, vtype_t type)
-{
-    if (!value)
-    {
-        return;
-    }
-
-    if (type == VAL_OBJ)
-    {
-        json_free(value);
-    }
-    else
-    {
-        free(value);
-    }
+void json_array_free(json_t *json) {
+	if(!json) {return;}
+	json_array_t *array = json->value;
+	json_free(array->value);
+	json_array_free(array->next);
+	free(json);
 }
 
-json_t *json_copy(const json_t *json)
-{
-    assert(json);
-
-    // the copy object
-    json_t *new_json = calloc(1, sizeof *new_json);
-
-    if (json->key)
-    {
-        new_json->key = strdup(json->key);
-    }
-
-    new_json->vtype = json->vtype;
-    new_json->value = _json_val_copy(json->value, json->vtype);
-
-    // copy the children
-    for (json_t *itr = (json_t *)json->child; itr; itr = itr->sibling)
-    {
-        json_t *child = json_copy(itr);
-        json_add_child(new_json, child);
-    }
-
-    // Do not copy siblings
-
-    return new_json;
+void json_object_free(json_t *json) {
+	if(!json) {return;}
+	json_array_t *obj = json->value;
+	free(obj->key);
+	json_free(obj->value);
+	json_object_free(obj->next);
+	free(json);
 }
 
-void *_json_val_copy(const void *value, vtype_t type)
-{
-    if (type == VAL_NONE)
-    {
-        return NULL;
-    }
-
-    assert(value);
-
-    if (type == VAL_STR)
-    {
-        return strdup(value);
-    }
-
-    else if (type == VAL_OBJ)
-    {
-        return json_copy(value);
-    }
-
-    else
-    {
-        void *new_value = NULL;
-
-        if (type == VAL_INT)
-        {
-            new_value = malloc(sizeof(int));
-            memcpy(new_value, value, sizeof(int));
-        }
-        else if (type == VAL_FLOAT)
-        {
-            new_value = malloc(sizeof(float));
-            memcpy(new_value, value, sizeof(float));
-        }
-        else if (type == VAL_CHAR)
-        {
-            new_value = malloc(sizeof(char));
-            memcpy(new_value, value, sizeof(char));
-        }
-        else if (type == VAL_BOOL)
-        {
-            new_value = malloc(sizeof(bool));
-            memcpy(new_value, value, sizeof(bool));
-        }
-
-        return new_value;
-    }
+json_t *json_create() {
+	return calloc(1, sizeof *json);
 }
 
-json_t *json_get(const json_t *json, const char *key)
-{
-    assert(json);
-    assert(key);
-
-    for (json_t *itr = json->child; itr; itr = itr->sibling)
-    {
-        if (itr->key && !strcmp(itr->key, key))
-        {
-            return itr;
-        }
-    }
-
-    return NULL;
+json_t *json_empty() {
+	return NULL;
 }
 
-void json_set(json_t *parent, const char *key, const void *value, vtype_t vtype)
-{
-    assert(parent);
-    assert(key);
-    assert(vtype != VAL_NONE);
-
-    // check if key exists
-    json_t *found = NULL;
-
-    if ((found = json_get(parent, key)) != NULL)
-    {
-        // free old value
-        _json_val_free(found->value, found->vtype);
-
-        // copy new value
-        found->vtype = vtype;
-        found->value = _json_val_copy(value, vtype);
-
-        return;
-    }
-
-    // create new parent obj
-    json_t *child = calloc(1, sizeof *child);
-    assert(child);
-
-    // copy key
-    child->key = strdup(key);
-
-    // copy value
-    child->vtype = vtype;
-    child->value = _json_val_copy(value, vtype);
-
-    assert(child->value);
-
-    LOG("Added key %s to object %p with type %d", key, (void *)parent, vtype);
-
-    // add new obj to linked list
-    json_add_child(parent, child);
+json_t *json_string_create(char *content) {
+	json_t *json = json_create();
+	json->type = json_type_string;
+	json->value = strdup(content);
+	return json;
 }
 
-void json_to_string(sstring *s, json_t *json)
-{
-    /*
-    { 'key': 'value', ... }
-    { 'key': { 'value.key': value, ... }}
-    */
-    assert(json);
-
-    sstring_putc(s, '{');
-
-    for (json_t *itr = json->child; itr; itr = itr->sibling)
-    {
-        if (itr->key)
-        {
-            sstring_putc(s, '\"');
-            sstring *s_tmp = cstr_to_sstring(itr->key);
-            sstring_append(s, s_tmp);
-            sstring_destructor(s_tmp);
-            sstring_putc(s, '\"');
-            sstring_putc(s, ':');
-            sstring_putc(s, ' ');
-        }
-
-        LOG("current obj: %p, key: %s, value type: %d", (void *)itr, itr->key, itr->vtype);
-
-        if (itr->vtype)
-        {
-            assert(itr->value);
-        }
-
-        if (itr->vtype == VAL_STR)
-        {
-            sstring_putc(s, '\"');
-            sstring *s_tmp = cstr_to_sstring(itr->value);
-            sstring_append(s, s_tmp);
-            sstring_destructor(s_tmp);
-            sstring_putc(s, '\"');
-        }
-
-        else if (itr->vtype == VAL_INT)
-        {
-            char tmp[128];
-            sprintf(tmp, "%d", *(int *)itr->value);
-            sstring *s_tmp = cstr_to_sstring(tmp);
-            sstring_append(s, s_tmp);
-            sstring_destructor(s_tmp);
-        }
-
-        else if (itr->vtype == VAL_FLOAT)
-        {
-            char tmp[128];
-            sprintf(tmp, "%f", *(float *)itr->value);
-            sstring *s_tmp = cstr_to_sstring(tmp);
-            sstring_append(s, s_tmp);
-            sstring_destructor(s_tmp);
-        }
-
-        else if (itr->vtype == VAL_CHAR)
-        {
-            sstring_putc(s, '\'');
-            sstring_putc(s, *(char *)itr->value);
-            sstring_putc(s, '\'');
-        }
-
-        else if (itr->vtype == VAL_BOOL)
-        {
-            sstring *tmp = NULL;
-            if (*(char *)itr->value == 0)
-            {
-                tmp = cstr_to_sstring("false");
-                sstring_append(s, tmp);
-            }
-            else
-            {
-                tmp = cstr_to_sstring("true");
-                sstring_append(s, tmp);
-            }
-            sstring_destructor(tmp);
-        }
-
-        else if (itr->vtype == VAL_OBJ)
-        {
-            sstring *inner_str = sstring_default_constructor();
-            json_to_string(inner_str, itr->value);
-            sstring_append(s, inner_str);
-            sstring_destructor(inner_str);
-        }
-
-        sstring_putc(s, ',');
-    }
-
-    sstring_putc(s, '}');
+json_t *json_array_create() {
+	json_t *json = json_create();
+	json->type = json_type_array;
+	json->value = calloc(1, sizeof(json_array_t));
+	return json;
 }
+
+json_t *json_object_create() {
+	json_t *json = json_create();
+	json->type = json_type_object;
+	json->value = calloc(1, sizeof(json_object_t));
+	return json;
+}
+
+json_t *json_clone(json_t *json) {
+	if(json->json_type == json_type_null){
+		return json_create();
+	}
+
+	if(json->json_type == json_type_object) {
+		return json_object_clone(json);
+	}
+
+	if(json->json_type == json_type_array) {
+		return json_array_clone(json);
+	}
+
+	if(json->json_type == json_type_string) {
+		return json_string_clone(json);
+	}
+	
+	return NULL;
+}
+
+
+json_t *json_string_clone(json_t *json) {
+	assert(json);
+	assert(json->type == json_type_string);
+
+	json *copy = json_create();
+	copy->json_type = json_type_string;
+	copy->value = strdup(json->value);
+	
+	return copy;
+}
+
+
+json_t *json_array_clone(json_t *json);
+json_t *json_object_clone(json_t *json);
+
+
+void json_object_set(json_t *json, char *key, json_t *value);
+json_t *json_object_get(json_t *json, char *key);
+
+void json_array_get(json_t *json, size_t index);
+void json_array_add(json_t *json, json_t *entry);
+void json_array_remove(json_t *json, size_t index);
+

@@ -2,88 +2,56 @@
 
 #include "sstring.h"
 
-/**
- * @brief Represents the possible types for the value of a JSON object key.
- *
- */
-typedef enum vtype_t
+typedef enum json_type
 {
-    VAL_NONE,
-    VAL_STR,
-    VAL_FLOAT,
-    VAL_INT,
-    VAL_CHAR,
-    VAL_BOOL,
-    VAL_OBJ,
-} vtype_t;
+    json_type_null,
+    json_type_array,
+    json_type_object,
+    json_type_string
+} json_type;
 
+struct _json_array_t;
+struct _json_object_t;
 
-/**
- * @brief Represents a JSON Object
- */
-typedef struct _json_t
+typedef struct json_t
 {
-    // all keys are strings (owned by the object)
-    char *key;
-
-    // value can take many forms
     void *value;
-
-    // vtype specifies the type of value
-    vtype_t vtype;
-
-    // Head of the list
-    struct _json_t *child;
-
-    // Next in the list
-    struct _json_t *sibling;
+    json_type type;
 } json_t;
 
-/*********** Private Methods ************/
-void _json_val_free(void *value, vtype_t type);
-void *_json_val_copy(const void *value, vtype_t type);
+typedef struct _json_obect_t
+{
+    char *key;
+    json_t *value;
+    struct _json_object_t *next;
+} json_object_t;
 
-/*********** Public Methods ************/
+typedef struct _json_array_t
+{
+    json_t *value;
+    struct _json_array_t *next;
+} json_array_t;
 
-/**
- * @brief Returns a JSON object containing the given key from the base JSON object.
- *
- * @param json
- * @param key
- * @return json_t*
- */
-json_t *json_get(const json_t *json, const char *key);
-
-/**
- * @brief Update or insert a key and value of type vtype into the given JSON object.
- *
- * @param json
- * @param key
- * @param value
- * @param vtype
- */
-void json_set(json_t *json, const char *key, const void *value, vtype_t vtype);
-
-/**
- * @brief Deep copy a JSON Object
- *
- * @param json
- * @return json_t*
- */
-json_t *json_copy(const json_t *json);
-
-/**
- * @brief Free the memory allocated by a JSON Object and all its children.
- *
- * @param json
- */
 void json_free(json_t *json);
+void json_string_free(json_t *json);
+void json_array_free(json_t *json);
+void json_object_free(json_t *json);
+
+json_t *json_create();
+json_t *json_empty();
+json_t *json_string_create(char *content);
+json_t *json_array_create();
+json_t *json_object_create();
+
+json_t *json_clone(json_t *json);
+json_t *json_string_clone(json_t *json);
+json_t *json_array_clone(json_t *json);
+json_t *json_object_clone(json_t *json);
 
 
-/**
- * @brief Fill s with string representation of JSON object
- * 
- * @param s string buffer to store intermediate results
- * @param json 
- */
-void json_to_string(sstring *s, json_t *json);
+void json_object_set(json_t *json, char *key, json_t *value);
+json_t *json_object_get(json_t *json, char *key);
+
+void json_array_get(json_t *json, size_t index);
+void json_array_add(json_t *json, json_t *entry);
+void json_array_remove(json_t *json, size_t index);
