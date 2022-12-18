@@ -7,6 +7,7 @@
 
 #include "json.h"
 #include "sstring.h"
+#include "common.h"
 
 void json_add_child(json_t *parent, json_t *child)
 {
@@ -77,6 +78,9 @@ json_t *json_copy(const json_t *json)
         new_json->key = strdup(json->key);
     }
 
+    new_json->vtype = json->vtype;
+    new_json->value = _json_val_copy(json->value, json->vtype);
+
     // copy the children
     for (json_t *itr = (json_t *)json->child; itr; itr = itr->sibling)
     {
@@ -91,6 +95,11 @@ json_t *json_copy(const json_t *json)
 
 void *_json_val_copy(const void *value, vtype_t type)
 {
+    if (type == VAL_NONE)
+    {
+        return NULL;
+    }
+
     assert(value);
 
     if (type == VAL_STR)
@@ -152,6 +161,7 @@ void json_set(json_t *parent, const char *key, const void *value, vtype_t vtype)
 {
     assert(parent);
     assert(key);
+    assert(vtype != VAL_NONE);
 
     // check if key exists
     json_t *found = NULL;
@@ -179,6 +189,10 @@ void json_set(json_t *parent, const char *key, const void *value, vtype_t vtype)
     child->vtype = vtype;
     child->value = _json_val_copy(value, vtype);
 
+    assert(child->value);
+
+    LOG("Added key %s to object %p with type %d", key, (void *)parent, vtype);
+
     // add new obj to linked list
     json_add_child(parent, child);
 }
@@ -191,6 +205,8 @@ void json_to_string(sstring *s, json_t *json)
     */
     assert(json);
 
+    sstring_putc(s, '{');
+
     for (json_t *itr = json->child; itr; itr = itr->sibling)
     {
         if (itr->key)
@@ -202,6 +218,13 @@ void json_to_string(sstring *s, json_t *json)
             sstring_putc(s, '\"');
             sstring_putc(s, ':');
             sstring_putc(s, ' ');
+        }
+
+        LOG("current obj: %p, key: %s, value type: %d", (void *)itr, itr->key, itr->vtype);
+
+        if (itr->vtype)
+        {
+            assert(itr->value);
         }
 
         if (itr->vtype == VAL_STR)
@@ -256,16 +279,14 @@ void json_to_string(sstring *s, json_t *json)
 
         else if (itr->vtype == VAL_OBJ)
         {
-            sstring_putc(s, '{');
-
             sstring *inner_str = sstring_default_constructor();
             json_to_string(inner_str, itr->value);
             sstring_append(s, inner_str);
             sstring_destructor(inner_str);
-
-            sstring_putc(s, '}');
         }
 
         sstring_putc(s, ',');
     }
+
+    sstring_putc(s, '}');
 }

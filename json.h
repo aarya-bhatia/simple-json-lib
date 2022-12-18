@@ -8,6 +8,7 @@
  */
 typedef enum vtype_t
 {
+    VAL_NONE,
     VAL_STR,
     VAL_FLOAT,
     VAL_INT,
