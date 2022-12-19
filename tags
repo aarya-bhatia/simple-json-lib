@@ -54,15 +54,22 @@ int_destructor	callbacks.c	/^void int_destructor(void *elem) {$/;"	f
 int_hash_function	callbacks.c	/^size_t int_hash_function(void *elem) {$/;"	f
 int_vector_create	vector.c	/^vector *int_vector_create()$/;"	f
 int_vector_print	vector.c	/^void int_vector_print(vector *this)$/;"	f
-json_array_free	json.c	/^void json_array_free(json_t *json) {$/;"	f
+json_array_clone	json.c	/^json_t *json_array_clone(json_t *json)$/;"	f
+json_array_create	json.c	/^json_t *json_array_create()$/;"	f
+json_array_free	json.c	/^void json_array_free(json_array_t *array)$/;"	f
 json_array_t	json.h	/^} json_array_t;$/;"	t	typeref:struct:_json_array_t
-json_create	json.c	/^json_t *json_create() {$/;"	f
-json_empty	json.c	/^json_t *json_empty() {$/;"	f
-json_free	json.c	/^void json_free(json_t *json) {$/;"	f
-json_object_free	json.c	/^void json_object_free(json_t *json) {$/;"	f
+json_clone	json.c	/^json_t *json_clone(json_t *json)$/;"	f
+json_create	json.c	/^json_t *json_create()$/;"	f
+json_empty	json.c	/^json_t *json_empty()$/;"	f
+json_free	json.c	/^void json_free(json_t *json)$/;"	f
+json_object_clone	json.c	/^json_t *json_object_clone(json_t *json)$/;"	f
+json_object_create	json.c	/^json_t *json_object_create()$/;"	f
+json_object_free	json.c	/^void json_object_free(json_object_t *obj)$/;"	f
+json_object_get	json.c	/^json_t *json_object_get(json_t *json, const char *key)$/;"	f
+json_object_set	json.c	/^void json_object_set(json_t *json, const char *key, json_t *value)$/;"	f
 json_object_t	json.h	/^} json_object_t;$/;"	t	typeref:struct:_json_obect_t
-json_string_create	json.c	/^json_t *json_string_create(char *content) {$/;"	f
-json_string_free	json.c	/^void json_string_free(json_t *json) {$/;"	f
+json_string_clone	json.c	/^json_t *json_string_clone(json_t *json)$/;"	f
+json_string_create	json.c	/^json_t *json_string_create(char *content)$/;"	f
 json_t	json.h	/^typedef struct json_t$/;"	s
 json_t	json.h	/^} json_t;$/;"	t	typeref:struct:json_t
 json_type	json.h	/^typedef enum json_type$/;"	g
