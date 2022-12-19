@@ -55,3 +55,5 @@ json_t *json_object_get(json_object_t *json, const char *key);
 void json_array_get(json_t *json, size_t index);
 void json_array_add(json_t *json, json_t *entry);
 void json_array_remove(json_t *json, size_t index);
+
+char *json_to_string(json_t *json);

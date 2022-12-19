@@ -28,6 +28,10 @@ int main(int argc, char *argv[])
 	json_object_set( (json_object_t *) json_a->value, "A", json_b, true );
 	json_object_set( (json_object_t *) json_b->value, "B", json_b_val, true );
 
+	char *s = json_to_string(json_a);
+	puts(s);
+	free(s);
+
 	json_free(json_a);
 
 	return 0;
