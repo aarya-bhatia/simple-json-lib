@@ -1,4 +1,4 @@
-OBJS=json.o sstring.o vector.o callbacks.o
+OBJS=json.o sstring.o vector.o callbacks.o util.o
 
 all: main # test
 

@@ -187,9 +187,54 @@ void json_object_set(json_object_t *obj, const char *key, json_t *value, bool sh
 	}
 }
 
-// void json_array_get(json_t *json, size_t index);
-// void json_array_add(json_t *json, json_t *entry);
-// void json_array_remove(json_t *json, size_t index);
+size_t json_array_size(json_array_t *arr)
+{
+	size_t i = 0;
+	while (arr)
+	{
+		i++;
+		arr = arr->next;
+	}
+
+	return i;
+}
+
+json_array_t *json_array_get(json_array_t *arr, size_t index)
+{
+	size_t i;
+
+	for (i = 0; arr && i < index; i++)
+	{
+		arr = arr->next;
+	}
+
+	return arr;
+}
+
+void json_array_add(json_array_t *json, json_array_t *entry)
+{
+	entry->next = json->next;
+	json->next = entry;
+}
+
+void json_array_remove(json_array_t *json, size_t index)
+{
+	if(index >= json_array_size(json)) {
+		return;
+	}
+
+	json_array_t *prev = json_array_get(json, index - 1);
+	json_array_t *cur = prev->next;
+
+	if(prev->next) {
+		prev->next = cur->next;
+	} else {
+		prev->next = NULL;
+	}
+
+	json_free(cur->value);
+	free(cur);
+}
 
 char *json_to_string(json_t *json)
 {
@@ -263,4 +308,23 @@ char *json_to_string(json_t *json)
 	char *cstr = sstring_to_cstr(s);
 	sstring_destroy(s);
 	return cstr;
+}
+
+json_t *_json_parse_string(char *str, size_t j)
+{
+	/*
+	json_t *json = json_create();
+
+	for(size_t i = 0; str[i] != 0; i++) {
+		if(str[i] == '[') {
+
+		}
+		else if(str[i] == '{')
+		{
+
+		}
+	}
+	*/
+
+	return NULL;
 }
