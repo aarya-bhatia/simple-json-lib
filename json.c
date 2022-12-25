@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "json.h"
+#include "string.h"
 
 void json_free(json_t *json)
 {
@@ -247,11 +248,11 @@ char *json_to_string(json_t *json)
 		return strdup((const char *)json->value);
 	}
 
-	sstring *s = sstring_default_constructor();
+	String *s = StringConstructor(0);
 
 	if (json->type == json_type_array)
 	{
-		sstring_putc(s, '[');
+		StringAdd(s, '[');
 
 		for (json_array_t *obj = json->value; obj; obj = obj->next)
 		{
@@ -262,9 +263,11 @@ char *json_to_string(json_t *json)
 
 			char *value_str = json_to_string(obj->value);
 
-			sstring *tmp = cstr_to_sstring(value_str);
-			sstring_append(s, tmp);
-			sstring_destroy(tmp);
+			String *tmp = CstrToString(value_str);
+			StringAppend(s, tmp);
+			StringDestructor(tmp);
+
+			free(value_str);
 
 			if (obj->next)
 			{
@@ -290,10 +293,11 @@ char *json_to_string(json_t *json)
 			char *s1;
 			asprintf(&s1, "\"%s\": %s", obj->key, value_str);
 
-			sstring *tmp = cstr_to_sstring(s1);
-			sstring_append(s, tmp);
-			sstring_destroy(tmp);
+			String *tmp = CstrToString(s1);
+			StringAppend(s, tmp);
+			StringDestructor(tmp);
 
+			free(value_str);
 			free(s1);
 
 			if (obj->next)
@@ -302,11 +306,11 @@ char *json_to_string(json_t *json)
 			}
 		}
 
-		sstring_putc(s, '}');
+		StringAdd(s, '}');
 	}
 
-	char *cstr = sstring_to_cstr(s);
-	sstring_destroy(s);
+	char *cstr = StringToCstr(s);
+	StringDestructor(s);
 	return cstr;
 }
 
@@ -328,3 +332,29 @@ json_t *_json_parse_string(char *str, size_t j)
 
 	return NULL;
 }
+
+
+
+
+void json_add(json_t *json, json_base_t *elem)
+{
+	elem->next = json->head;
+	json->head = elem;
+	json->size++;
+}
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+

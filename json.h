@@ -1,39 +1,47 @@
 #pragma once
 
 #include "common.h"
-#include "sstring.h"
 
-enum _json_type
+typedef enum _json_type
 {
     json_type_null,
     json_type_array,
     json_type_object,
     json_type_string
-};
+} json_type;
 
-struct _json_t
+typedef struct _json_base_t
 {
-    void *value;
-    enum _json_type type;
+	void *json_ptr;
+	json_type_t json_type;
+} json_base_t;
+
+typedef struct _json_node_t
+{
+	json_base_t *value;
+	struct _json_node_t *next;
+} json_node_t;
+
+typedef struct _json_t
+{
+	json_node_t *head;
+	json_node_t *tail;
+	size_t size;
 };
 
-struct _json_object_t
+typedef struct _json_object_t
 {
     char *key;
     struct _json_t *value;
     struct _json_object_t *next;
-};
+} json_object_t;
 
-struct _json_array_t
+typedef struct _json_array_t
 {
     struct _json_t *value;
     struct _json_array_t *next;
-};
+} json_array_t;
 
-typedef enum _json_type json_type;
-typedef struct _json_array_t json_array_t;
-typedef struct _json_object_t json_object_t;
-typedef struct _json_t json_t;
 
 #define json_object_iterator(arr, itr, callback) \
 {\
@@ -47,6 +55,9 @@ typedef struct _json_t json_t;
 			callback;                           \
 	}
 
+json_base_t *json_object_create();
+
+void json_add(json_t *json, json_base_t *elem);
 
 void json_free(json_t *json);
 void json_array_free(json_array_t *);

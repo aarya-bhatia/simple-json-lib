@@ -1,12 +1,19 @@
-OBJS=json.o sstring.o vector.o callbacks.o util.o
+CFLAGS= -Wall -g -pedantic -std=gnu99 -Istring -c
+LDFLAGS= string/libstring.a
 
-all: main # test
+main: objs/main.o objs/json.o | string
+	gcc $(LDFLAGS) -o $@ $^
 
-main: $(OBJS) main.o 
-	gcc -std=gnu99 -I. $^ -o $@
+objs/%.o: %.c
+	mkdir -p objs;
+	gcc $(CFLAGS) -o $@ $<
 
-%.o: %.c
-	gcc -Wall -Wextra -Werror -Wno-unused-parameter -g -pedantic -std=gnu99 -c $< -o $@
+string:
+	cd string && make string;
+
+tags:
+	ctags -R *
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf objs/ main tags;
+	cd string && make clean;

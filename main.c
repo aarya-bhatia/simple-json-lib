@@ -21,11 +21,16 @@ int main(int argc, char *argv[])
 	json_object_set( (json_object_t *) json_a->value, "A", json_b, true );
 	json_object_set( (json_object_t *) json_b->value, "B", json_b_val, true );
 
+	json_t *json_d = wrap_json_array(json_array_create());
+
 	char *s = json_to_string(json_a);
 	puts(s);
 	free(s);
 
 	json_free(json_a);
+
+	json_t *root = json_create();
+	json_add(root, json_type_object);
 
 	return 0;
 }

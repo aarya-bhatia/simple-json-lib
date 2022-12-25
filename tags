@@ -4,174 +4,81 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-ALIGN_SIZE	sstring.c	/^#define ALIGN_SIZE(/;"	d	file:
-BLOCK_SIZE	sstring.c	/^#define BLOCK_SIZE /;"	d	file:
-GROWTH_FACTOR	sstring.c	/^#define GROWTH_FACTOR /;"	d	file:
-GROWTH_FACTOR	vector.c	/^const size_t GROWTH_FACTOR = 2;$/;"	v
-INITIAL_CAPACITY	sstring.c	/^#define INITIAL_CAPACITY /;"	d	file:
-INITIAL_CAPACITY	vector.c	/^const size_t INITIAL_CAPACITY = 8;$/;"	v
+CstrToString	string/string.c	/^String *CstrToString(char *cstr)$/;"	f
+INITIAL_CAPACITY	string/string.h	/^#define INITIAL_CAPACITY /;"	d
 LOG	common.h	/^#define LOG(/;"	d
-MAX	sstring.c	/^#define MAX(/;"	d	file:
-MAX	vector.c	/^#define MAX(/;"	d	file:
-MIN	sstring.c	/^#define MIN(/;"	d	file:
-MIN	vector.c	/^#define MIN(/;"	d	file:
-OBJS	Makefile	/^OBJS=json.o sstring.o vector.o callbacks.o$/;"	m
-_GNU_SOURCE	sstring.c	/^#define _GNU_SOURCE$/;"	d	file:
+MAX	string/string.h	/^#define MAX(/;"	d
+MIN	string/string.h	/^#define MIN(/;"	d
+OBJS	Makefile	/^OBJS=json.o$/;"	m
+String	string/string.h	/^} String;$/;"	t	typeref:struct:_String
+StringAdd	string/string.c	/^void StringAdd(String *this, char c)$/;"	f
+StringAppend	string/string.c	/^void StringAppend(String *this, const String *other)$/;"	f
+StringCapacity	string/string.c	/^size_t StringCapacity(const String *this)$/;"	f
+StringConstructor	string/string.c	/^String *StringConstructor(size_t n)$/;"	f
+StringDestructor	string/string.c	/^void StringDestructor(String *this)$/;"	f
+StringReserve	string/string.c	/^void StringReserve(String *this, size_t capacity)$/;"	f
+StringResize	string/string.c	/^void StringResize(String *this, size_t size)$/;"	f
+StringSize	string/string.c	/^size_t StringSize(const String *this)$/;"	f
+StringSlice	string/string.c	/^char *StringSlice(String *this, size_t start, size_t end)$/;"	f
+StringToCstr	string/string.c	/^char *StringToCstr(String *this)$/;"	f
+TARGET	Makefile	/^TARGET=main$/;"	m
+_GetCapacity	string/string.c	/^size_t _GetCapacity(size_t n)$/;"	f
+_String	string/string.h	/^typedef struct _String$/;"	s
 _json_array_t	json.h	/^typedef struct _json_array_t$/;"	s
-_json_obect_t	json.h	/^typedef struct _json_obect_t$/;"	s
-array	vector.c	/^    void **array;$/;"	m	struct:vector	file:
-buffer	sstring.c	/^    char *buffer; \/* string buffer *\/$/;"	m	struct:sstring	file:
-capacity	sstring.c	/^    size_t capacity; \/* buffer size *\/$/;"	m	struct:sstring	file:
-capacity	vector.c	/^    size_t capacity;$/;"	m	struct:vector	file:
-char_copy_constructor	callbacks.c	/^void *char_copy_constructor(void *elem) {$/;"	f
-char_default_constructor	callbacks.c	/^void *char_default_constructor(void) {$/;"	f
-char_destructor	callbacks.c	/^void char_destructor(void *elem) {$/;"	f
-char_hash_function	callbacks.c	/^size_t char_hash_function(void *elem) {$/;"	f
-char_vector_create	vector.c	/^vector *char_vector_create()$/;"	f
-copy_constructor	vector.c	/^    copy_constructor_type copy_constructor;$/;"	m	struct:vector	file:
-copy_constructor_type	callbacks.h	/^typedef void *(*copy_constructor_type)(void *elem);$/;"	t
-cstr_to_sstring	sstring.c	/^sstring *cstr_to_sstring(const char *input) {$/;"	f
-default_constructor	vector.c	/^    default_constructor_type default_constructor;$/;"	m	struct:vector	file:
-default_constructor_type	callbacks.h	/^typedef void *(*default_constructor_type)(void);$/;"	t
-destructor	vector.c	/^    destructor_type destructor;$/;"	m	struct:vector	file:
-destructor_type	callbacks.h	/^typedef void (*destructor_type)(void *elem);$/;"	t
-double_copy_constructor	callbacks.c	/^void *double_copy_constructor(void *elem) {$/;"	f
-double_default_constructor	callbacks.c	/^void *double_default_constructor(void) {$/;"	f
-double_destructor	callbacks.c	/^void double_destructor(void *elem) {$/;"	f
-double_hash_function	callbacks.c	/^size_t double_hash_function(void *elem) {$/;"	f
-double_vector_create	vector.c	/^vector *double_vector_create()$/;"	f
-find_substring_index	sstring.c	/^ssize_t find_substring_index(char *src, size_t n1, char *target, size_t n2)$/;"	f
-float_copy_constructor	callbacks.c	/^void *float_copy_constructor(void *elem) {$/;"	f
-float_default_constructor	callbacks.c	/^void *float_default_constructor(void) {$/;"	f
-float_destructor	callbacks.c	/^void float_destructor(void *elem) {$/;"	f
-float_hash_function	callbacks.c	/^size_t float_hash_function(void *elem) {$/;"	f
-float_vector_create	vector.c	/^vector *float_vector_create()$/;"	f
-get_new_capacity	vector.c	/^static size_t get_new_capacity(size_t target)$/;"	f	file:
-hash_function_type	callbacks.h	/^typedef size_t (*hash_function_type)(void *elem);$/;"	t
-int_copy_constructor	callbacks.c	/^void *int_copy_constructor(void *elem) {$/;"	f
-int_default_constructor	callbacks.c	/^void *int_default_constructor(void) {$/;"	f
-int_destructor	callbacks.c	/^void int_destructor(void *elem) {$/;"	f
-int_hash_function	callbacks.c	/^size_t int_hash_function(void *elem) {$/;"	f
-int_vector_create	vector.c	/^vector *int_vector_create()$/;"	f
-int_vector_print	vector.c	/^void int_vector_print(vector *this)$/;"	f
-json_array_clone	json.c	/^json_t *json_array_clone(json_t *json)$/;"	f
-json_array_create	json.c	/^json_t *json_array_create()$/;"	f
+_json_base_t	json.h	/^typedef struct _json_base_t$/;"	s
+_json_node_t	json.h	/^typedef struct _json_node_t$/;"	s
+_json_object_t	json.h	/^typedef struct _json_object_t$/;"	s
+_json_parse_string	json.c	/^json_t *_json_parse_string(char *str, size_t j)$/;"	f
+_json_t	json.h	/^typedef struct _json_t$/;"	s
+_json_type	json.h	/^typedef enum _json_type$/;"	g
+buffer	string/string.h	/^	char *buffer;$/;"	m	struct:_String
+capacity	string/string.h	/^	size_t capacity;$/;"	m	struct:_String
+check_string	string/main.c	/^void check_string(String *s, char *value, size_t size)$/;"	f
+check_string_append	string/main.c	/^void check_string_append(char *s1, char *s2)$/;"	f
+head	json.h	/^	json_node_t *head;$/;"	m	struct:_json_t
+json_add	json.c	/^void json_add(json_t *json, json_base_t *elem)$/;"	f
+json_array_add	json.c	/^void json_array_add(json_array_t *json, json_array_t *entry)$/;"	f
+json_array_clone	json.c	/^json_array_t *json_array_clone(json_array_t *array)$/;"	f
+json_array_create	json.c	/^json_array_t *json_array_create()$/;"	f
 json_array_free	json.c	/^void json_array_free(json_array_t *array)$/;"	f
+json_array_get	json.c	/^json_array_t *json_array_get(json_array_t *arr, size_t index)$/;"	f
+json_array_iterator	json.h	/^#define json_array_iterator(/;"	d
+json_array_remove	json.c	/^void json_array_remove(json_array_t *json, size_t index)$/;"	f
+json_array_size	json.c	/^size_t json_array_size(json_array_t *arr)$/;"	f
 json_array_t	json.h	/^} json_array_t;$/;"	t	typeref:struct:_json_array_t
+json_base_t	json.h	/^} json_base_t;$/;"	t	typeref:struct:_json_base_t
 json_clone	json.c	/^json_t *json_clone(json_t *json)$/;"	f
 json_create	json.c	/^json_t *json_create()$/;"	f
-json_empty	json.c	/^json_t *json_empty()$/;"	f
 json_free	json.c	/^void json_free(json_t *json)$/;"	f
-json_object_clone	json.c	/^json_t *json_object_clone(json_t *json)$/;"	f
-json_object_create	json.c	/^json_t *json_object_create()$/;"	f
+json_from	util.c	/^json_t *json_from(void *value, json_type type, int shallow)$/;"	f
+json_node_t	json.h	/^} json_node_t;$/;"	t	typeref:struct:_json_node_t
+json_object_clone	json.c	/^json_object_t *json_object_clone(json_object_t *obj)$/;"	f
+json_object_create	json.c	/^json_object_t *json_object_create()$/;"	f
 json_object_free	json.c	/^void json_object_free(json_object_t *obj)$/;"	f
-json_object_get	json.c	/^json_t *json_object_get(json_t *json, const char *key)$/;"	f
-json_object_set	json.c	/^void json_object_set(json_t *json, const char *key, json_t *value)$/;"	f
-json_object_t	json.h	/^} json_object_t;$/;"	t	typeref:struct:_json_obect_t
-json_string_clone	json.c	/^json_t *json_string_clone(json_t *json)$/;"	f
-json_string_create	json.c	/^json_t *json_string_create(char *content)$/;"	f
-json_t	json.h	/^typedef struct json_t$/;"	s
-json_t	json.h	/^} json_t;$/;"	t	typeref:struct:json_t
-json_type	json.h	/^typedef enum json_type$/;"	g
-json_type	json.h	/^} json_type;$/;"	t	typeref:enum:json_type
-json_type_array	json.h	/^    json_type_array,$/;"	e	enum:json_type
-json_type_null	json.h	/^    json_type_null,$/;"	e	enum:json_type
-json_type_object	json.h	/^    json_type_object,$/;"	e	enum:json_type
-json_type_string	json.h	/^    json_type_string$/;"	e	enum:json_type
-key	json.h	/^    char *key;$/;"	m	struct:_json_obect_t
-long_copy_constructor	callbacks.c	/^void *long_copy_constructor(void *elem) {$/;"	f
-long_default_constructor	callbacks.c	/^void *long_default_constructor(void) {$/;"	f
-long_destructor	callbacks.c	/^void long_destructor(void *elem) {$/;"	f
-long_hash_function	callbacks.c	/^size_t long_hash_function(void *elem) {$/;"	f
-long_vector_create	vector.c	/^vector *long_vector_create()$/;"	f
-main	example-1.c	/^int main(int argc, char *argv[])$/;"	f
+json_object_get	json.c	/^json_t *json_object_get(json_object_t *obj, const char *key)$/;"	f
+json_object_iterator	json.h	/^#define json_object_iterator(/;"	d
+json_object_set	json.c	/^void json_object_set(json_object_t *obj, const char *key, json_t *value, bool shallow_copy)$/;"	f
+json_object_t	json.h	/^} json_object_t;$/;"	t	typeref:struct:_json_object_t
+json_ptr	json.h	/^	void *json_ptr;$/;"	m	struct:_json_base_t
+json_to_string	json.c	/^char *json_to_string(json_t *json)$/;"	f
+json_type	json.h	/^	json_type_t json_type;$/;"	m	struct:_json_base_t
+json_type	json.h	/^} json_type;$/;"	t	typeref:enum:_json_type
+json_type_array	json.h	/^    json_type_array,$/;"	e	enum:_json_type
+json_type_null	json.h	/^    json_type_null,$/;"	e	enum:_json_type
+json_type_object	json.h	/^    json_type_object,$/;"	e	enum:_json_type
+json_type_string	json.h	/^    json_type_string$/;"	e	enum:_json_type
+key	json.h	/^    char *key;$/;"	m	struct:_json_object_t
 main	main.c	/^int main(int argc, char *argv[])$/;"	f
-main	sstring_test.c	/^int main()$/;"	f
+main	string/main.c	/^int main()$/;"	f
+main	test.c	/^int main(int argc, char *argv[])$/;"	f
+next	json.h	/^	struct _json_node_t *next;$/;"	m	struct:_json_node_t	typeref:struct:_json_node_t::_json_node_t
 next	json.h	/^    struct _json_array_t *next;$/;"	m	struct:_json_array_t	typeref:struct:_json_array_t::_json_array_t
-next	json.h	/^    struct _json_object_t *next;$/;"	m	struct:_json_obect_t	typeref:struct:_json_obect_t::_json_object_t
-pointer_hash_function	callbacks.c	/^size_t pointer_hash_function(void *elem) {$/;"	f
-print_string	sstring_test.c	/^void print_string(void *elem) {$/;"	f
-shallow_copy_constructor	callbacks.c	/^void *shallow_copy_constructor(void *elem) {$/;"	f
-shallow_default_constructor	callbacks.c	/^void *shallow_default_constructor(void) {$/;"	f
-shallow_destructor	callbacks.c	/^void shallow_destructor(void *elem) {$/;"	f
-shallow_hash_function	callbacks.c	/^size_t shallow_hash_function(void *elem) {$/;"	f
-shallow_vector_create	vector.c	/^vector *shallow_vector_create()$/;"	f
-short_copy_constructor	callbacks.c	/^void *short_copy_constructor(void *elem) {$/;"	f
-short_default_constructor	callbacks.c	/^void *short_default_constructor(void) {$/;"	f
-short_destructor	callbacks.c	/^void short_destructor(void *elem) {$/;"	f
-short_hash_function	callbacks.c	/^size_t short_hash_function(void *elem) {$/;"	f
-short_vector_create	vector.c	/^vector *short_vector_create()$/;"	f
-size	sstring.c	/^    size_t size; \/* strlen(buffer) *\/$/;"	m	struct:sstring	file:
-size	vector.c	/^    size_t size;$/;"	m	struct:vector	file:
-sstring	sstring.c	/^struct sstring {$/;"	s	file:
-sstring	sstring.h	/^typedef struct sstring sstring;$/;"	t	typeref:struct:sstring
-sstring_append	sstring.c	/^int sstring_append(sstring *this, sstring *addition) {$/;"	f
-sstring_capacity	sstring.c	/^size_t sstring_capacity(sstring*ss){$/;"	f
-sstring_cmp	sstring.c	/^int sstring_cmp(sstring *s, const char *str)$/;"	f
-sstring_copy_constructor	sstring.c	/^void *sstring_copy_constructor(void *elem) {$/;"	f
-sstring_default_constructor	sstring.c	/^void *sstring_default_constructor(void) {$/;"	f
-sstring_destroy	sstring.c	/^void sstring_destroy(sstring *this) {$/;"	f
-sstring_destructor	sstring.c	/^void sstring_destructor(void *elem) {$/;"	f
-sstring_equals	sstring.c	/^int sstring_equals(sstring *s1, sstring *s2)$/;"	f
-sstring_get_buffer	sstring.c	/^char *sstring_get_buffer(sstring *ss){$/;"	f
-sstring_print	sstring.c	/^void sstring_print(sstring *ss){$/;"	f
-sstring_putc	sstring.c	/^void sstring_putc(sstring *ss, char c)$/;"	f
-sstring_size	sstring.c	/^size_t sstring_size(sstring*ss){$/;"	f
-sstring_slice	sstring.c	/^char *sstring_slice(sstring *this, int start, int end) {$/;"	f
-sstring_split	sstring.c	/^vector *sstring_split(sstring *this, char delimiter) {$/;"	f
-sstring_substitute	sstring.c	/^int sstring_substitute(sstring *this, size_t offset, char *target,$/;"	f
-sstring_to_cstr	sstring.c	/^char *sstring_to_cstr(sstring *input) {$/;"	f
-string_copy_constructor	callbacks.c	/^void *string_copy_constructor(void *elem) {$/;"	f
-string_default_constructor	callbacks.c	/^void *string_default_constructor(void) {$/;"	f
-string_destructor	callbacks.c	/^void string_destructor(void *elem) {$/;"	f
-string_hash_function	callbacks.c	/^size_t string_hash_function(void *elem) {$/;"	f
-string_vector_create	vector.c	/^vector *string_vector_create()$/;"	f
-test_is_valid_sstring	sstring.c	/^int test_is_valid_sstring(sstring *s){$/;"	f
-test_is_valid_sstring_index	sstring.c	/^int test_is_valid_sstring_index(sstring *s, size_t i)$/;"	f
-type	json.h	/^    json_type type;$/;"	m	struct:json_t
-unsigned_char_copy_constructor	callbacks.c	/^void *unsigned_char_copy_constructor(void *elem) {$/;"	f
-unsigned_char_default_constructor	callbacks.c	/^void *unsigned_char_default_constructor(void) {$/;"	f
-unsigned_char_destructor	callbacks.c	/^void unsigned_char_destructor(void *elem) {$/;"	f
-unsigned_char_hash_function	callbacks.c	/^size_t unsigned_char_hash_function(void *elem) {$/;"	f
-unsigned_char_vector_create	vector.c	/^vector *unsigned_char_vector_create()$/;"	f
-unsigned_int_copy_constructor	callbacks.c	/^void *unsigned_int_copy_constructor(void *elem) {$/;"	f
-unsigned_int_default_constructor	callbacks.c	/^void *unsigned_int_default_constructor(void) {$/;"	f
-unsigned_int_destructor	callbacks.c	/^void unsigned_int_destructor(void *elem) {$/;"	f
-unsigned_int_hash_function	callbacks.c	/^size_t unsigned_int_hash_function(void *elem) {$/;"	f
-unsigned_int_vector_create	vector.c	/^vector *unsigned_int_vector_create()$/;"	f
-unsigned_long_copy_constructor	callbacks.c	/^void *unsigned_long_copy_constructor(void *elem) {$/;"	f
-unsigned_long_default_constructor	callbacks.c	/^void *unsigned_long_default_constructor(void) {$/;"	f
-unsigned_long_destructor	callbacks.c	/^void unsigned_long_destructor(void *elem) {$/;"	f
-unsigned_long_hash_function	callbacks.c	/^size_t unsigned_long_hash_function(void *elem) {$/;"	f
-unsigned_long_vector_create	vector.c	/^vector *unsigned_long_vector_create()$/;"	f
-unsigned_short_copy_constructor	callbacks.c	/^void *unsigned_short_copy_constructor(void *elem) {$/;"	f
-unsigned_short_default_constructor	callbacks.c	/^void *unsigned_short_default_constructor(void) {$/;"	f
-unsigned_short_destructor	callbacks.c	/^void unsigned_short_destructor(void *elem) {$/;"	f
-unsigned_short_hash_function	callbacks.c	/^size_t unsigned_short_hash_function(void *elem) {$/;"	f
-unsigned_short_vector_create	vector.c	/^vector *unsigned_short_vector_create()$/;"	f
-value	json.h	/^    json_t *value;$/;"	m	struct:_json_array_t
-value	json.h	/^    json_t *value;$/;"	m	struct:_json_obect_t
-value	json.h	/^    void *value;$/;"	m	struct:json_t
-vector	vector.c	/^struct vector$/;"	s	file:
-vector	vector.h	/^typedef struct vector vector;$/;"	t	typeref:struct:vector
-vector_at	vector.c	/^void **vector_at(vector *this, size_t position)$/;"	f
-vector_back	vector.c	/^void **vector_back(vector *this)$/;"	f
-vector_begin	vector.c	/^void **vector_begin(vector *this)$/;"	f
-vector_capacity	vector.c	/^size_t vector_capacity(vector *this)$/;"	f
-vector_clear	vector.c	/^void vector_clear(vector *this)$/;"	f
-vector_create	vector.c	/^vector *vector_create(copy_constructor_type copy_constructor,$/;"	f
-vector_destroy	vector.c	/^void vector_destroy(vector *this)$/;"	f
-vector_empty	vector.c	/^bool vector_empty(vector *this)$/;"	f
-vector_end	vector.c	/^void **vector_end(vector *this)$/;"	f
-vector_erase	vector.c	/^void vector_erase(vector *this, size_t position)$/;"	f
-vector_front	vector.c	/^void **vector_front(vector *this)$/;"	f
-vector_get	vector.c	/^void *vector_get(vector *this, size_t position)$/;"	f
-vector_index	vector.c	/^void **vector_index(vector *v, size_t i)$/;"	f
-vector_insert	vector.c	/^void vector_insert(vector *this, size_t position, void *element)$/;"	f
-vector_pop_back	vector.c	/^void vector_pop_back(vector *this)$/;"	f
-vector_print	vector.c	/^void vector_print(vector *this, void (*printer)(void *elem))$/;"	f
-vector_push_back	vector.c	/^void vector_push_back(vector *this, void *element)$/;"	f
-vector_reserve	vector.c	/^void vector_reserve(vector *this, size_t n)$/;"	f
-vector_resize	vector.c	/^void vector_resize(vector *this, size_t n)$/;"	f
-vector_set	vector.c	/^void vector_set(vector *this, size_t position, void *element)$/;"	f
-vector_size	vector.c	/^size_t vector_size(vector *this)$/;"	f
+next	json.h	/^    struct _json_object_t *next;$/;"	m	struct:_json_object_t	typeref:struct:_json_object_t::_json_object_t
+size	json.h	/^	size_t size;$/;"	m	struct:_json_t
+size	string/string.h	/^	size_t size;$/;"	m	struct:_String
+tail	json.h	/^	json_node_t *tail;$/;"	m	struct:_json_t
+value	json.h	/^	json_base_t *value;$/;"	m	struct:_json_node_t
+value	json.h	/^    struct _json_t *value;$/;"	m	struct:_json_array_t	typeref:struct:_json_array_t::_json_t
+value	json.h	/^    struct _json_t *value;$/;"	m	struct:_json_object_t	typeref:struct:_json_object_t::_json_t
+wrap_json_array	util.c	/^json_t *wrap_json_array(json_array_t *array)$/;"	f
+wrap_json_object	util.c	/^json_t *wrap_json_object(json_object_t *object)$/;"	f
