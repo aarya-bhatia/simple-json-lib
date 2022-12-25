@@ -41,5 +41,5 @@ typedef struct _json_number_t
 
 typedef struct _json_boolean_t
 {
-    bool boolean;
+    char boolean;
 } json_boolean_t;

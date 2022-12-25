@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "string.h"
+#include "StringLibrary.h"
 
 size_t _GetCapacity(size_t n)
 {

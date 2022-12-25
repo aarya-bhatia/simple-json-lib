@@ -1,5 +1,7 @@
-CFLAGS= -Wall -g -pedantic -std=gnu99 -I String -c
-LDFLAGS= String/libstring.a
+CFLAGS= -Wall -g -std=gnu99 -IStringLibrary -c
+LDFLAGS= StringLibrary/libstring.a
+
+all: String main tags
 
 main: objs/main.o objs/json.o | String
 	gcc $(LDFLAGS) -o $@ $^
@@ -9,11 +11,11 @@ objs/%.o: %.c
 	gcc $(CFLAGS) -o $@ $<
 
 String:
-	cd String && make String;
+	cd StringLibrary && make String;
 
 tags:
 	ctags -R *
 
 clean:
 	rm -rf objs/ main tags;
-	cd String && make clean;
+	cd StringLibrary && make clean;

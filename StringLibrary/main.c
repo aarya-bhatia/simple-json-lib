@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
-#include "string.h"
+#include "StringLibrary.h"
 
 void check_string(String *s, char *value, size_t size)
 {

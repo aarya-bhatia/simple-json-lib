@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sys/types.h>
+
 #define INITIAL_CAPACITY 64
 
 #define MAX(A,B) ((A)>(B)?(A):(B))

@@ -1,0 +1,92 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CFLAGS	Makefile	/^CFLAGS= -Wall -g -std=gnu99 -IStringLibrary -c$/;"	m
+CstrToString	StringLibrary/StringLibrary.c	/^String *CstrToString(char *cstr)$/;"	f
+INITIAL_CAPACITY	StringLibrary/StringLibrary.h	/^#define INITIAL_CAPACITY /;"	d
+LDFLAGS	Makefile	/^LDFLAGS= StringLibrary\/libstring.a$/;"	m
+LOG	common.h	/^#define LOG(/;"	d
+MAX	StringLibrary/StringLibrary.h	/^#define MAX(/;"	d
+MIN	StringLibrary/StringLibrary.h	/^#define MIN(/;"	d
+String	StringLibrary/StringLibrary.h	/^} String;$/;"	t	typeref:struct:_String
+StringAdd	StringLibrary/StringLibrary.c	/^void StringAdd(String *this, char c)$/;"	f
+StringAppend	StringLibrary/StringLibrary.c	/^void StringAppend(String *this, const String *other)$/;"	f
+StringCapacity	StringLibrary/StringLibrary.c	/^size_t StringCapacity(const String *this)$/;"	f
+StringConstructor	StringLibrary/StringLibrary.c	/^String *StringConstructor(size_t n)$/;"	f
+StringDestructor	StringLibrary/StringLibrary.c	/^void StringDestructor(String *this)$/;"	f
+StringReserve	StringLibrary/StringLibrary.c	/^void StringReserve(String *this, size_t capacity)$/;"	f
+StringResize	StringLibrary/StringLibrary.c	/^void StringResize(String *this, size_t size)$/;"	f
+StringSize	StringLibrary/StringLibrary.c	/^size_t StringSize(const String *this)$/;"	f
+StringSlice	StringLibrary/StringLibrary.c	/^char *StringSlice(String *this, size_t start, size_t end)$/;"	f
+StringToCstr	StringLibrary/StringLibrary.c	/^char *StringToCstr(String *this)$/;"	f
+_GetCapacity	StringLibrary/StringLibrary.c	/^size_t _GetCapacity(size_t n)$/;"	f
+_String	StringLibrary/StringLibrary.h	/^typedef struct _String$/;"	s
+_json_array_t	types.h	/^typedef struct _json_array_t$/;"	s
+_json_base_t	types.h	/^typedef struct _json_base_t$/;"	s
+_json_boolean_t	types.h	/^typedef struct _json_boolean_t$/;"	s
+_json_number_t	types.h	/^typedef struct _json_number_t$/;"	s
+_json_object_t	types.h	/^typedef struct _json_object_t$/;"	s
+_json_string_t	types.h	/^typedef struct _json_string_t$/;"	s
+_json_type	types.h	/^typedef enum _json_type$/;"	g
+boolean	types.h	/^    char boolean;$/;"	m	struct:_json_boolean_t
+buffer	StringLibrary/StringLibrary.h	/^	char *buffer;$/;"	m	struct:_String
+capacity	StringLibrary/StringLibrary.h	/^	size_t capacity;$/;"	m	struct:_String
+check_string	StringLibrary/main.c	/^void check_string(String *s, char *value, size_t size)$/;"	f
+check_string_append	StringLibrary/main.c	/^void check_string_append(char *s1, char *s2)$/;"	f
+json_array_clone	json.c	/^json_array_t *json_array_clone(json_array_t *json)$/;"	f
+json_array_create	json.c	/^json_array_t *json_array_create()$/;"	f
+json_array_free	json.c	/^void json_array_free(json_array_t *json)$/;"	f
+json_array_iterator	json.h	/^#define json_array_iterator(/;"	d
+json_array_t	types.h	/^} json_array_t;$/;"	t	typeref:struct:_json_array_t
+json_array_to_string	json.c	/^String *json_array_to_string(json_array_t *json)$/;"	f
+json_base_clone	json.c	/^json_base_t *json_base_clone(json_base_t *json)$/;"	f
+json_base_create	json.c	/^json_base_t *json_base_create()$/;"	f
+json_base_free	json.c	/^void json_base_free(json_base_t *json)$/;"	f
+json_base_t	types.h	/^} json_base_t;$/;"	t	typeref:struct:_json_base_t
+json_base_to_string	json.c	/^String *json_base_to_string(json_base_t *json)$/;"	f
+json_boolean_clone	json.c	/^json_boolean_t *json_boolean_clone(json_boolean_t *json)$/;"	f
+json_boolean_create	json.c	/^json_boolean_t *json_boolean_create()$/;"	f
+json_boolean_free	json.c	/^void json_boolean_free(json_boolean_t *json)$/;"	f
+json_boolean_t	types.h	/^} json_boolean_t;/;"	t	typeref:struct:_json_boolean_t
+json_boolean_to_string	json.c	/^String *json_boolean_to_string(json_boolean_t *json)$/;"	f
+json_number_clone	json.c	/^json_number_t *json_number_clone(json_number_t *json)$/;"	f
+json_number_create	json.c	/^json_number_t *json_number_create()$/;"	f
+json_number_free	json.c	/^void json_number_free(json_number_t *json)$/;"	f
+json_number_t	types.h	/^} json_number_t;$/;"	t	typeref:struct:_json_number_t
+json_number_to_string	json.c	/^String *json_number_to_string(json_number_t *json)$/;"	f
+json_object_clone	json.c	/^json_object_t *json_object_clone(json_object_t *json)$/;"	f
+json_object_create	json.c	/^json_object_t *json_object_create()$/;"	f
+json_object_free	json.c	/^void json_object_free(json_object_t *json)$/;"	f
+json_object_iterator	json.h	/^#define json_object_iterator(/;"	d
+json_object_t	types.h	/^} json_object_t;$/;"	t	typeref:struct:_json_object_t
+json_object_to_string	json.c	/^String *json_object_to_string(json_object_t *json)$/;"	f
+json_string_clone	json.c	/^json_string_t *json_string_clone(json_string_t *json)$/;"	f
+json_string_create	json.c	/^json_string_t *json_string_create()$/;"	f
+json_string_free	json.c	/^void json_string_free(json_string_t *json)$/;"	f
+json_string_t	types.h	/^} json_string_t;$/;"	t	typeref:struct:_json_string_t
+json_string_to_string	json.c	/^String *json_string_to_string(json_string_t *json)$/;"	f
+json_type	types.h	/^} json_type;$/;"	t	typeref:enum:_json_type
+json_type_array	types.h	/^    json_type_array,$/;"	e	enum:_json_type
+json_type_boolean	types.h	/^    json_type_boolean,$/;"	e	enum:_json_type
+json_type_null	types.h	/^    json_type_null,$/;"	e	enum:_json_type
+json_type_number	types.h	/^    json_type_number$/;"	e	enum:_json_type
+json_type_object	types.h	/^    json_type_object,$/;"	e	enum:_json_type
+json_type_string	types.h	/^    json_type_string,$/;"	e	enum:_json_type
+key	types.h	/^    char *key;$/;"	m	struct:_json_object_t
+main	StringLibrary/main.c	/^int main()$/;"	f
+main	main.c	/^int main(int argc, char *argv[])$/;"	f
+main	test.c	/^int main(int argc, char *argv[])$/;"	f
+next	types.h	/^    struct _json_array_t *next;$/;"	m	struct:_json_array_t	typeref:struct:_json_array_t::_json_array_t
+next	types.h	/^    struct _json_object_t *next;$/;"	m	struct:_json_object_t	typeref:struct:_json_object_t::_json_object_t
+number	types.h	/^    double number;$/;"	m	struct:_json_number_t
+size	StringLibrary/StringLibrary.h	/^	size_t size;$/;"	m	struct:_String
+std	StringLibrary/Makefile	/^	gcc -std=c99 -o $@ main.o libstring.a$/;"	m
+string	types.h	/^    char *string;$/;"	m	struct:_json_string_t
+type	types.h	/^    json_type type;$/;"	m	struct:_json_base_t
+types	generate.py	/^types = ['base','object','array','string','number','boolean']$/;"	v
+value	types.h	/^    json_base_t *value;$/;"	m	struct:_json_array_t
+value	types.h	/^    json_base_t *value;$/;"	m	struct:_json_object_t
+value	types.h	/^    void *value;$/;"	m	struct:_json_base_t
