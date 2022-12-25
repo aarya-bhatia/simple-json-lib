@@ -1,9 +1,9 @@
 all: main
 
-string: string.o
-	ar rcs libstring.a string.o
+String: String.o
+	ar rcs libstring.a String.o
 
-main: string main.o
+main: String main.o
 	gcc -std=c99 -o $@ main.o libstring.a
 
 %.o: %.c
@@ -13,4 +13,4 @@ tags:
 	ctags .
 
 clean:
-	rm *.o *.a main tags
+	rm -rf *.o *.a main tags

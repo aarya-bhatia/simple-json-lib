@@ -1,19 +1,19 @@
-CFLAGS= -Wall -g -pedantic -std=gnu99 -Istring -c
-LDFLAGS= string/libstring.a
+CFLAGS= -Wall -g -pedantic -std=gnu99 -I String -c
+LDFLAGS= String/libstring.a
 
-main: objs/main.o objs/json.o | string
+main: objs/main.o objs/json.o | String
 	gcc $(LDFLAGS) -o $@ $^
 
 objs/%.o: %.c
 	mkdir -p objs;
 	gcc $(CFLAGS) -o $@ $<
 
-string:
-	cd string && make string;
+String:
+	cd String && make String;
 
 tags:
 	ctags -R *
 
 clean:
 	rm -rf objs/ main tags;
-	cd string && make clean;
+	cd String && make clean;
