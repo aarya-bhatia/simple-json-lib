@@ -10,7 +10,10 @@
 size_t _GetCapacity(size_t n)
 {
 	size_t c = 1;
-	while(c < n) { c = c << 1; }
+	while (c < n)
+	{
+		c = c << 1;
+	}
 	return c;
 }
 
@@ -26,10 +29,15 @@ String *StringConstructor(size_t n)
 {
 	String *this = malloc(sizeof *this);
 	this->size = 0;
-	this->capacity = _GetCapacity(MAX(n, INITIAL_CAPACITY));
+	this->capacity = MAX(_GetCapacity(n), INITIAL_CAPACITY);
 	this->buffer = calloc(this->capacity, 1);
 
 	return this;
+}
+
+String *StringDefaultConstructor()
+{
+	return StringConstructor(INITIAL_CAPACITY);
 }
 
 size_t StringSize(const String *this)
@@ -49,6 +57,19 @@ void StringAdd(String *this, char c)
 {
 	StringReserve(this, this->size + 1);
 	this->buffer[this->size++] = c;
+}
+
+/**
+ * Adds a c string to the end of the String
+ */
+void StringAddCstr(String *this, char *cstr)
+{
+	assert(this);
+	assert(cstr);
+	size_t length = strlen(cstr);
+	StringReserve(this, this->size + length);
+	memcpy(this->buffer + this->size, cstr, length);
+	this->size += length;
 }
 
 /**
@@ -90,7 +111,8 @@ String *CstrToString(char *cstr)
  */
 void StringDestructor(String *this)
 {
-	if(!this) {
+	if (!this)
+	{
 		return;
 	}
 
@@ -98,21 +120,20 @@ void StringDestructor(String *this)
 	free(this);
 }
 
-
 /**
  * Returns a substring (C string) of given String in the range [start ... end)
  * Returns NULL if invalid range i.e. end < start
  */
 char *StringSlice(String *this, size_t start, size_t end)
 {
-	if(end < start || start >= this->size || end > this->size) 
+	if (end < start || start >= this->size || end > this->size)
 	{
 		return NULL;
 	}
 
 	size_t length = end - start;
 	char *str = calloc(length + 1, 1);
-	memcpy(str, this->buffer + start, length);	
+	memcpy(str, this->buffer + start, length);
 	return str;
 }
 
@@ -125,25 +146,27 @@ char *StringSlice(String *this, size_t start, size_t end)
  */
 void StringResize(String *this, size_t size)
 {
-	if(size == this->size) {
+	if (size == this->size)
+	{
 		return;
 	}
 
 	this->capacity = _GetCapacity(size);
 	this->buffer = realloc(this->buffer, this->capacity);
 
-	if(size > this->size) {
+	if (size > this->size)
+	{
 		// zero out the new bytes
 		memset(this->buffer + this->size, 0, size - this->size);
 	}
-	else {
+	else
+	{
 		// zero out the extra bytes
 		memset(this->buffer + size, 0, this->size - size);
 	}
 
 	this->size = size;
 }
-
 
 /**
  * - This function will do nothing if new capacity is smaller than old capacity.
@@ -152,7 +175,8 @@ void StringResize(String *this, size_t size)
  */
 void StringReserve(String *this, size_t capacity)
 {
-	if(capacity > this->capacity) {
+	if (capacity > this->capacity)
+	{
 		this->capacity = _GetCapacity(capacity);
 		this->buffer = realloc(this->buffer, this->capacity);
 	}

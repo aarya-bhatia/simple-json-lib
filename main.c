@@ -6,16 +6,11 @@
 
 int main()
 {
-	json_object_t *json = json_object_create();
-
-	json = json_object_set(json, "Hello", json_string("Hello"));
-	json = json_object_set(json, "World", json_string("World"));
-
-	String *s = json_object_to_string(json);
-	StringWrite(s, 1);
-	StringDestructor(s);
-
-	json_object_free(json);
+	json_object_t *json = json_string_object();
+	json_object_set_key(json, "hello");
+	json_object_set_value(json, "world");
+	puts(json_object_to_string(json));
+	json_object_destructor(json);
 
 	return 0;
 }

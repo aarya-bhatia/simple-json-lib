@@ -41,7 +41,7 @@ void check_string_append(char *s1, char *s2)
 
 int main()
 {
-	String *s = StringConstructor(0);
+	String *s = StringDefaultConstructor();
 	check_string(s, "", 0);
 	assert(s->capacity == INITIAL_CAPACITY);
 

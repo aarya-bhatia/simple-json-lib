@@ -1,17 +1,21 @@
-CFLAGS= -Wall -g -std=gnu99 -IStringLibrary -c
+INCLUDES=-IStringLibrary -I.
+CFLAGS= -Wall -g -std=gnu99 $(INCLUDES) -c
 LDFLAGS= StringLibrary/libstring.a
 
-all: String main tags
+all: main tags
 
-main: objs/main.o objs/json.o | String
+FILE=main.c json.c types.c util.c
+OBJ=$(FILE:%.c=objs/%.o)
+
+main: $(OBJ) | String
 	gcc $(LDFLAGS) -o $@ $^
+
+String:
+	cd StringLibrary && make String;
 
 objs/%.o: %.c
 	mkdir -p objs;
 	gcc $(CFLAGS) -o $@ $<
-
-String:
-	cd StringLibrary && make String;
 
 tags:
 	ctags -R *

@@ -25,6 +25,11 @@ void StringWrite(String *this, int fd);
  */
 String *StringConstructor(size_t n);
 
+/**
+ * Creates new String with default capacity
+ */
+String *StringDefaultConstructor();
+
 size_t StringSize(const String *this);
 size_t StringCapacity(const String *this);
 
@@ -32,6 +37,11 @@ size_t StringCapacity(const String *this);
  * Adds a single characters to the end of the String
  */
 void StringAdd(String *this, char c);
+
+/**
+ * Adds a c string to the end of the String
+ */
+void StringAddCstr(String *this, char *cstr);
 
 /**
  * Concatenates the String other to the String this

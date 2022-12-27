@@ -22,62 +22,27 @@ typedef struct json_object_t
     struct json_object_t *next;
 } json_object_t;
 
-
 #define json_object_iterator(arr, itr, callback) \
     {                                            \
         for (itr = arr; itr; itr = itr->next)    \
             callback                             \
     }
 
+#define json_string_object() json_object_constructor(string_copy_constructor, string_destructor, string_to_string)
 
-object_t *json_string()
-{
-    return object_constructor(string_copy_constructor, string_destructor);
-}
+#define json_number_object() json_object_constructor(number_copy_constructor, number_destructor, number_to_string)
 
-object_t *json_number()
-{
-    return object_constructor(number_copy_constructor, number_destructor);
-}
-
-object_t *json_booolean()
-{
-    return object_constructor(boolean_copy_constructor, boolean_destructor);
-}
+#define json_boolean_object() json_object_constructor(boolean_copy_constructor, boolean_destructor, boolean_to_string)
 
 json_object_t *json_object_constructor(copy_constructor_type value_copy_constructor,
-                                       destructor_type value_destructor)
-{
-    json_object_t *json = calloc(1, sizeof *json);
-    json->value = object_constructor(value_copy_constructor, value_destructor);
-    return json;
-}
+                                       destructor_type value_destructor,
+                                       to_string_type to_string);
 
-json_object_t *json_object_copy_constructor(json_object_t *json)
-{
-    if (!json)
-    {
-        return NULL;
-    }
+json_object_t *json_object_copy_constructor(json_object_t *json);
+void json_object_destructor(json_object_t *json);
+char *json_object_to_string(json_object_t *json);
 
-    json_object_t *new_json = json_object_constructor(json->value->copy_constructor, json->value->destructor);
-
-    new_json->key = string_copy_constructor(json->key);
-    new_json->next = json_object_copy_constructor(json->next);
-
-    return new_json;
-}
-
-void json_object_destructor(json_object_t *json)
-{
-    if (!json)
-    {
-        return;
-    }
-
-    json->value->destructor(json->value);
-    free(json->key);
-    json_object_destructor(json->next);
-    free(json);
-}
-
+#define json_object_set_key(json, new_key) json->key = string_copy_constructor(new_key)
+#define json_object_get_key(json) json->key
+#define json_object_set_value(json, new_value) object_set(json->value, new_value)
+#define json_object_get_value(json) object_get(json->value)
