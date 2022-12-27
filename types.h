@@ -1,45 +1,39 @@
 #pragma once
 
-typedef enum _json_type
-{
-    json_type_null,
-    json_type_array,
-    json_type_object,
-    json_type_string,
-    json_type_boolean,
-    json_type_number
-} json_type;
+typedef void *(*default_constructor_type)();
+typedef void (*destructor_type)(void *);
+typedef void *(*copy_constructor_type)(void *);
 
-typedef struct _json_base_t
+typedef struct object_t
 {
-    void *value;
-    json_type type;
-} json_base_t;
+    void *elem;
+    copy_constructor_type copy_constructor;
+    destructor_type destructor;
+} object_t;
 
-typedef struct _json_object_t
-{
-    char *key;
-    json_base_t *value;
-    struct _json_object_t *next;
-} json_object_t;
+void *shallow_default_constructor();
+void shallow_destructor(void *elem);
+void *shallow_copy_constructor();
 
-typedef struct _json_array_t
-{
-    json_base_t *value;
-    struct _json_array_t *next;
-} json_array_t;
+void *null_default_constructor();
+void *null_copy_constructor(void *elem);
+void null_destructor(void *elem);
 
-typedef struct _json_string_t
-{
-    char *string;
-} json_string_t;
+void *object_constructor(copy_constructor_type copy_constructor,
+                         destructor_type destructor);
 
-typedef struct _json_number_t
-{
-    double number;
-} json_number_t;
+void *object_default_constructor();
+void *object_copy_constructor(void *elem);
+void object_destructor(void *elem);
 
-typedef struct _json_boolean_t
-{
-    char boolean;
-} json_boolean_t;
+void *string_default_constructor();
+void *string_copy_constructor(void *elem);
+void string_destructor(void *elem);
+
+void *number_default_constructor();
+void *number_copy_constructor(void *elem);
+void number_destructor(void *elem);
+
+void *boolean_default_constructor();
+void *boolean_copy_constructor(void *elem);
+void boolean_destructor(void *elem);

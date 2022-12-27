@@ -4,8 +4,8 @@
 
 #define INITIAL_CAPACITY 64
 
-#define MAX(A,B) ((A)>(B)?(A):(B))
-#define MIN(A,B) ((A)<(B)?(A):(B))
+#define MAX(A, B) ((A) > (B) ? (A) : (B))
+#define MIN(A, B) ((A) < (B) ? (A) : (B))
 
 /**
  * Represents a String object as a flexible array of characters
@@ -16,6 +16,9 @@ typedef struct _String
 	size_t size;
 	size_t capacity;
 } String;
+
+size_t _GetCapacity(size_t n);
+void StringWrite(String *this, int fd);
 
 /**
  * Creates a new String object with a capacity of at least n characters

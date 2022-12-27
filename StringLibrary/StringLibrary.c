@@ -14,6 +14,11 @@ size_t _GetCapacity(size_t n)
 	return c;
 }
 
+void StringWrite(String *this, int fd)
+{
+	write(fd, this->buffer, this->size);
+}
+
 /**
  * Creates a new String object with a capacity of at least n characters
  */
