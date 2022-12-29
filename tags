@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+JSON	json.hpp	/^    JSON() {}$/;"	f	class:JSON
+JSON	json.hpp	/^class JSON$/;"	c
+JSONArray	json.hpp	/^    JSONArray() : JSON()$/;"	f	class:JSONArray
+JSONArray	json.hpp	/^class JSONArray : public JSON$/;"	c
+JSONNumber	json.hpp	/^    JSONNumber(int value = 0) : JSON(), value(value)$/;"	f	class:JSONNumber
+JSONNumber	json.hpp	/^class JSONNumber : public JSON$/;"	c
+JSONObject	json.hpp	/^    JSONObject() : JSON()$/;"	f	class:JSONObject
+JSONObject	json.hpp	/^class JSONObject : public JSON$/;"	c
+JSONString	json.hpp	/^    JSONString(const std::string &s = std::string("")) : JSON(), value(s)$/;"	f	class:JSONString
+JSONString	json.hpp	/^class JSONString : public JSON$/;"	c
+_elem	json.hpp	/^    std::vector<JSON *> _elem;$/;"	m	class:JSONArray
+_map	json.hpp	/^    std::unordered_map<std::string, JSON *> _map;$/;"	m	class:JSONObject
+add	json.hpp	/^    void add(JSON *json)$/;"	f	class:JSONArray
+clone	json.hpp	/^    virtual JSON *clone() const { return NULL; }$/;"	f	class:JSON
+get	json.hpp	/^    JSON *get(const std::string &key)$/;"	f	class:JSONObject
+get	json.hpp	/^    JSON *get(size_t index)$/;"	f	class:JSONArray
+get	json.hpp	/^    const std::string &get() const$/;"	f	class:JSONString
+main	main.cpp	/^int main()$/;"	f
+override	json.hpp	/^    std::string to_string() const override;$/;"	m	class:JSONArray
+override	json.hpp	/^    std::string to_string() const override;$/;"	m	class:JSONObject
+set	json.hpp	/^    void set(const std::string &key, JSON *value)$/;"	f	class:JSONObject
+set	json.hpp	/^    void set(const std::string &s)$/;"	f	class:JSONString
+to_string	json.cpp	/^std::string JSONArray::to_string() const$/;"	f	class:JSONArray
+to_string	json.cpp	/^std::string JSONObject::to_string() const$/;"	f	class:JSONObject
+to_string	json.hpp	/^    virtual std::string to_string() const { return NULL; }$/;"	f	class:JSON
+value	json.hpp	/^    int value;$/;"	m	class:JSONNumber
+value	json.hpp	/^    std::string value;$/;"	m	class:JSONString
+~JSON	json.hpp	/^    virtual ~JSON() {}$/;"	f	class:JSON
