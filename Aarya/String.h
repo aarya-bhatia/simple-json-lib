@@ -7,15 +7,8 @@
 #define MAX(A, B) ((A) > (B) ? (A) : (B))
 #define MIN(A, B) ((A) < (B) ? (A) : (B))
 
-/**
- * Represents a String object as a flexible array of characters
- */
-typedef struct _String
-{
-	char *buffer;
-	size_t size;
-	size_t capacity;
-} String;
+// forward declare
+typedef struct _String String;
 
 size_t _GetCapacity(size_t n);
 void StringWrite(String *this, int fd);
@@ -84,3 +77,7 @@ void StringResize(String *this, size_t size);
  * - It will NOT change the size of the string, but it MAY change its capacity.
  */
 void StringReserve(String *this, size_t capacity);
+
+/** Utilities **/
+
+String *wrap_with_quotes(char *str);

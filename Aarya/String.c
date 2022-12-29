@@ -5,7 +5,17 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "StringLibrary.h"
+#include "String.h"
+
+/**
+ * Represents a String object as a flexible array of characters
+ */
+struct _String
+{
+	char *buffer;
+	size_t size;
+	size_t capacity;
+};
 
 size_t _GetCapacity(size_t n)
 {
@@ -100,9 +110,8 @@ String *CstrToString(char *cstr)
 {
 	size_t length = strlen(cstr);
 	String *this = StringConstructor(length);
-	this->buffer = malloc(length);
-	this->size = length;
 	memcpy(this->buffer, cstr, length);
+	this->size = length;
 	return this;
 }
 
@@ -180,4 +189,13 @@ void StringReserve(String *this, size_t capacity)
 		this->capacity = _GetCapacity(capacity);
 		this->buffer = realloc(this->buffer, this->capacity);
 	}
+}
+
+String *wrap_with_quotes(char *str)
+{
+	String *s = StringDefaultConstructor();
+	StringAdd(s, '"');
+	StringAddCstr(s, str);
+	StringAdd(s, '"');
+	return s;
 }

@@ -4,10 +4,21 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
-#include "StringLibrary.h"
+#include "Aarya/String.h"
+
+#define LOG(...)                                                       \
+    do                                                                 \
+    {                                                                  \
+        fprintf(stderr, "%s:%d %s(): ", __FILE__, __LINE__, __func__); \
+        fprintf(stderr, __VA_ARGS__);                                  \
+        fprintf(stderr, "\n");                                         \
+    } while (0);
+
 
 void check_string(String *s, char *value, size_t size)
 {
+	LOG("check %s, %zu", value, size);
+
 	assert(s);
 	assert(!memcmp(s->buffer, value, size));
 	assert(StringSize(s) == size);
@@ -16,6 +27,8 @@ void check_string(String *s, char *value, size_t size)
 
 void check_string_append(char *s1, char *s2)
 {
+	LOG("check append %s, %s", s1, s2);
+
 	String *t1 = CstrToString(s1);
 	String *t2 = CstrToString(s2);
 
@@ -23,6 +36,9 @@ void check_string_append(char *s1, char *s2)
 	assert(t2);
 
 	size_t l1 = strlen(s1), l2 = strlen(s2);
+
+	assert(t1->size == l1);
+	assert(t2->size == l2);
 
 	StringAppend(t1, t2);
 

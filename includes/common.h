@@ -1,5 +1,14 @@
 #pragma once
 
+#include "callbacks.h"
+#include "string_callbacks.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <sys/types.h>
+#include <stdio.h>
+
 #define LOG(...)                                                       \
     do                                                                 \
     {                                                                  \

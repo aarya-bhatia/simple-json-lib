@@ -1,25 +1,35 @@
-INCLUDES=-IStringLibrary -I.
-CFLAGS= -Wall -g -std=gnu99 $(INCLUDES) -c
-LDFLAGS= StringLibrary/libstring.a
+CC=gcc
+LD=gcc
 
-all: main tags
+OBJ_DIR=.objs
+SRC_DIR=src
 
-FILE=main.c json.c types.c util.c
-OBJ=$(FILE:%.c=objs/%.o)
+INCLUDES=-I. -Iincludes -Isrc
+WARNINGS=-Wall -Wextra -Werror -Wno-error=unused-parameter -Wmissing-declarations
+CFLAGS= $(WARNINGS) $(INCLUDES) -g -std=c99 -c -MMD -MP -D_GNU_SOURCE -O0 -DDEBUG
 
-main: $(OBJ) | String
-	gcc $(LDFLAGS) -o $@ $^
+FILES=$(shell find src lib Aarya -type f -name "*.c")
+OBJ=$(FILES:%.c=$(OBJ_DIR)/%.o)
 
-String:
-	cd StringLibrary && make String;
+all: json_test ht_test
 
-objs/%.o: %.c
-	mkdir -p objs;
-	gcc $(CFLAGS) -o $@ $<
+json_test: $(OBJ) $(OBJ_DIR)/test/test.o
+	$(LD) $^ -o $@ 
+
+ht_test: $(OBJ) $(OBJ_DIR)/test/ht_test.o
+	$(LD) $^ -o $@ 
+
+string_test: $(OBJ_DIR)/test/string_test.o $(OBJ)
+	$(LD) -o $@ $^
+
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(dir $@);
+	$(CC) $(CFLAGS) -o $@ $<
 
 tags:
 	ctags -R *
 
 clean:
-	rm -rf objs/ main tags;
-	cd StringLibrary && make clean;
+	rm -rf $(OBJ_DIR) main string_test tags
+
+-include $(OBJ_DIR)/*.d
